@@ -166,33 +166,7 @@ public class Main {
 
         System.out.println("Thank you for playing!");
 
-        //dealer.stack.outputDeck();
 
-
-
-
-        /* TESTING OUTPUT BOXES
-        JOptionPane.showMessageDialog(null,"Welcome to BlackJack!","Blackjack!",1);
-
-        int x;
-
-        Object[] options = {"Yes, please",
-                "No, thanks",
-                "No eggs, no ham!"};
-
-        x = JOptionPane.showOptionDialog(null,//parent container of JOptionPane
-                "Would you like some green eggs to go with that ham?",
-                "A Silly Question",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,//do not use a custom Icon
-                options,//the titles of buttons
-                options[2]);//default button title
-
-        System.out.println(x);
-
-
-         */
 
     }
 }
