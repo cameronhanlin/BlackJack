@@ -50,11 +50,15 @@ public class Card {
         this.onTable = onTable;
     }
 
+    public void setValue(int value){
+        this.value = value;
+    }
+
     public void switchAceValue(){
         if(value == 11)
-            value = 1;
+            setValue(1);
         else
-            value = 11;
+            setValue(11);
     }
 
     public void outputCard(){

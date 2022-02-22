@@ -51,93 +51,120 @@ public class Main {
         int player1Total = 0;
         int houseTotal = 0;
 
-        ///ADD SOMETHING TO SEND THE player1 list of cards to DEALER and have the dealer output??!??!?!?
 
-        player1.addAll(dealer.deal());
-        house.addAll(dealer.deal());
+        do {        //begin main loop for repeat play
 
-        System.out.println("*********************************House Hand");
-        for(int i=0; i<player1.size(); i++){
-            house.get(i).outputCard();
-            houseTotal = houseTotal + house.get(i).getValue();
-        }
+            player1.addAll(dealer.deal());   //initial deal of player and computer
+            house.addAll(dealer.deal());
 
-        System.out.println("*********************************Player First Hand");
-        for(int i=0; i<player1.size(); i++){
-            player1.get(i).outputCard();
-            player1Total = player1Total + player1.get(i).getValue();
-        }
+            System.out.println("*********************************House Hand");    //outputs the dealer's hand
+            for (int i = 0; i < player1.size(); i++) {
+                house.get(i).outputCard();
+                houseTotal = houseTotal + house.get(i).getValue();
+            }
 
-        System.out.print("Do you want to hit or stay? (h/s):");
-        playerChoice = scan.nextLine();  // input for options
+            System.out.println("*********************************Player First Hand");   //outputs the players hand
+            for (int i = 0; i < player1.size(); i++) {
+                player1.get(i).outputCard();
+                player1Total = player1Total + player1.get(i).getValue();
+            }
 
-        while(playerChoice.equals("h") && player1Total <= 21){
-            newCard = dealer.hit();
-            newCard.outputCard();
-            player1.add(newCard);
-            player1Total = player1Total + newCard.getValue();
+            for (int i = 0; i < player1.size(); i++) {     /// checks if the player has an ace in their initial deal, and if they want to split it
+                if (player1.get(i).getRank().equals("Ace")) {
+                    System.out.print("Do you want to switch your Ace to a 1? (y/n) ");
+                    playerChoice = scan.nextLine();
+                    if (playerChoice.equals("y")) {
+                        player1.get(i).switchAceValue();
+                        player1Total = player1Total - 10;
+                    }
+                }
 
-            System.out.print("Do you want to hit or stay? (h/s):");
+            }
+
+            System.out.print("Do you want to hit or stay? (h/s):");     //first ask if they want to hit or stay
             playerChoice = scan.nextLine();  // input for options
 
-        }
+            while (playerChoice.equals("h") && player1Total <= 21) {   //checks that the player actually wants to hit
+                newCard = dealer.hit();
+                newCard.outputCard();
+                if(newCard.getValue() == 11){
+                    System.out.print("Do you want to switch your Ace to a 1? (y/n) ");    //asks about an ace value if the player hits and receives an ace
+                    playerChoice = scan.nextLine();
+                    if (playerChoice.equals("y")) {
+                        newCard.switchAceValue();
+                    }
 
-        while(houseTotal <= 16){
-            System.out.println("The House Hits");
-            newCard = newCard = dealer.hit();
-            newCard.outputCard();
-            house.add(newCard);
-            houseTotal = houseTotal + newCard.getValue();
-        }
+                }
+                player1.add(newCard);
+                player1Total = player1Total + newCard.getValue();
 
-        System.out.println("The House Stays");
+                if(player1Total <21) {                             ///if they player is busted, it forces a stay
+                    System.out.print("Do you want to hit or stay? (h/s):");
+                    playerChoice = scan.nextLine();  // input for options
+                }
+                else
+                    playerChoice = "s";
 
+            }
 
+            while (houseTotal <= 16) {             //the house hits if they are below 17, assumes aces are 11 always (default)
+                System.out.println("The House Hits");
+                newCard = newCard = dealer.hit();
+                newCard.outputCard();
+                house.add(newCard);
+                houseTotal = houseTotal + newCard.getValue();
+            }
 
-
-
-
-
-
-        //System.out.println(houseTotal);
-        //player1.add(dealer.hit());
-        //house.add(dealer.hit());
-
-        System.out.println("*********************************Player Final Hand "+player1Total);
-        for(int i=0; i<player1.size(); i++)
-            player1.get(i).outputCard();
-
-        System.out.println("*********************************House Final Hand "+houseTotal);
-        for(int i=0; i<house.size(); i++)
-            house.get(i).outputCard();
-
-
-        if(player1Total > 21 && houseTotal > 21){
-            System.out.println("Both player and house busted, house wins");
-        }
-        else if(player1Total > 21){
-            System.out.println("Player busted, house wins");
-        }
-        else if(houseTotal > 21) {
-            System.out.println("House busted, player wins");
-        }
-        else if(houseTotal == player1Total){
-            System.out.println("Tie game, no winner");
-        }
-        else if(player1Total == 21 ){
-            System.out.println("BLACKJACK!! Player wins!");
-        }
-        else if(houseTotal == 21){
-            System.out.println("House Blackjack wins!");
-        }
-        else if(player1Total > houseTotal){
-            System.out.println("Player wins!");
-        }
-        else if(houseTotal > player1Total){
-            System.out.println("House wins.");
-        }
+            System.out.println("The House Stays");
 
 
+            System.out.println("*********************************Player Final Hand " + player1Total);     //outputs final hands
+            for (int i = 0; i < player1.size(); i++)
+                player1.get(i).outputCard();
+
+            System.out.println("*********************************House Final Hand " + houseTotal);
+            for (int i = 0; i < house.size(); i++)
+                house.get(i).outputCard();
+
+
+            if (player1Total > 21 && houseTotal > 21) {                                        //checks who won
+                System.out.println("Both player and house busted, house wins");
+            } else if (player1Total > 21) {
+                System.out.println("Player busted, house wins");
+            } else if (houseTotal > 21) {
+                System.out.println("House busted, player wins");
+            } else if (houseTotal == player1Total) {
+                System.out.println("Tie game, house wins");
+            } else if (player1Total == 21) {
+                System.out.println("BLACKJACK!! Player wins!");
+            } else if (houseTotal == 21) {
+                System.out.println("House Blackjack wins!");
+            } else if (player1Total > houseTotal) {
+                System.out.println("Player wins!");
+            } else if (houseTotal > player1Total) {
+                System.out.println("House wins.");
+            }
+
+
+            dealer.stack.newDeck();                ///defaults to reseting player and dealer's hand, and 'clears the table'
+            player1.clear();
+            house.clear();
+            player1Total = 0;
+            houseTotal = 0;
+
+            System.out.print("Do you want to play again? (y/n)");
+            playerChoice = scan.nextLine();
+
+
+            if(playerChoice.equals("y")){                ///clears the consol as best as possible
+                for(int i = 0; i<20; i++){
+                    System.out.println("\n");
+                }
+            }
+
+        } while(playerChoice.equals("y"));
+
+        System.out.println("Thank you for playing!");
 
         //dealer.stack.outputDeck();
 

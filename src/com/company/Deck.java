@@ -21,7 +21,6 @@ public class Deck {
     private int[] values = {2,3,4,5,6,7,8,9,10,10,10,10,11};
     public int cardsOnTable;
 
-
     public Deck(){
         for(int i = 0; i < 13; i++){
             for(int j=0; j < 4; j++){
@@ -52,7 +51,10 @@ public class Deck {
 
     public void outputDeck(){
         for(int i=0; i < deck.size(); i++) {
-            deck.get(i).outputCard();
+            System.out.print(deck.get(i).getSuit()+" ");
+            System.out.print(deck.get(i).getRank()+" ");
+            System.out.print(deck.get(i).getValue()+" ");
+            System.out.println(deck.get(i).getOnTable());
         }
     }
 
