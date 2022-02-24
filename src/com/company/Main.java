@@ -40,19 +40,18 @@ public class Main {
         Super Bonus: Can you handle the dealer also playing a hand to see who wins with the closest score to 21?
         */
 
-
-
         Dealer dealer = new Dealer();
         Card newCard = new Card();
         List<Card> player1 = new ArrayList<>();
         List<Card> house = new ArrayList<>();
         Scanner scan = new Scanner(System.in);
+
         String playerChoice;
         int player1Total = 0;
         int houseTotal = 0;
 
 
-        do {        //begin main loop for repeat play
+        do {                                //begin main loop for repeat play
 
             player1.addAll(dealer.deal());   //initial deal of player and computer
             house.addAll(dealer.deal());
@@ -78,7 +77,6 @@ public class Main {
                         player1Total = player1Total - 10;
                     }
                 }
-
             }
 
             System.out.print("Do you want to hit or stay? (h/s):");     //first ask if they want to hit or stay
@@ -117,7 +115,6 @@ public class Main {
 
             System.out.println("The House Stays");
 
-
             System.out.println("*********************************Player Final Hand " + player1Total);     //outputs final hands
             for (int i = 0; i < player1.size(); i++)
                 player1.get(i).outputCard();
@@ -125,7 +122,6 @@ public class Main {
             System.out.println("*********************************House Final Hand " + houseTotal);
             for (int i = 0; i < house.size(); i++)
                 house.get(i).outputCard();
-
 
             if (player1Total > 21 && houseTotal > 21) {                                        //checks who won
                 System.out.println("Both player and house busted, house wins");
@@ -145,7 +141,6 @@ public class Main {
                 System.out.println("House wins.");
             }
 
-
             dealer.stack.newDeck();                ///defaults to reseting player and dealer's hand, and 'clears the table'
             player1.clear();
             house.clear();
@@ -154,7 +149,6 @@ public class Main {
 
             System.out.print("Do you want to play again? (y/n)");
             playerChoice = scan.nextLine();
-
 
             if(playerChoice.equals("y")){                ///clears the consol as best as possible
                 for(int i = 0; i<20; i++){

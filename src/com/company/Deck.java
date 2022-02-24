@@ -14,6 +14,7 @@ public class Deck {
                 Assigning each card a value to 2-11
                 This should be done to recreate the 52 unique cards in a deck
      */
+
     private List<Card> deck = new ArrayList<>();
     private Random rand = new Random();
     private String[] suits = {"Hearts","Diamonds","Spades","Clubs"};
